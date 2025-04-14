@@ -1,0 +1,70 @@
+Table boende {
+	id integer [pk]
+	boende_typ boende_type 
+	adress text
+	skapad timestamp
+}
+
+Table plats {
+	id integer [pk]
+	beskrivning text
+	status plats_status_type
+	notering text [note: 'Används för orsaker vid plats_status.ej_tillgänglig'] 
+	boende_id integer [ref: > boende.id]
+	skapad timestamp
+}
+
+Table person {
+	id integer [pk] 
+	dossier_nummer integer [null]
+	förnamn text
+	efternamn text
+	kön kön_type
+	plats_id integer [ref: > plats.id]
+	grupp_id integer [ref: > grupp.id]
+	bokning_id integer [ref: > bokning.id]
+	skapad timestamp
+}
+
+
+Table grupp {
+	id integer [pk]
+	gruppnamn text
+	skapad timestamp
+}
+
+
+Table bokning {
+	id integer [pk]
+	boende_id integer [ref: > boende.id]
+	skapad timestamp
+}
+
+
+Table bokning_platser {
+bokning_id integer [ref: > bokning.id]
+plats_id integer [ref: > plats.id]
+skapad timestamp
+Note: 'Junction table för att länka bokning and plats'
+}
+
+
+enum boende_type {
+	"MLUBA"
+	"TLMBA"
+}
+
+enum kön_type {
+	"Man"
+	"Kvinna"
+	"Annat"
+}
+
+enum plats_status_type {
+  klarställning
+  bokningsbar
+  ej_tillgänglig
+  bokad
+  belagd
+}
+
