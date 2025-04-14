@@ -22,7 +22,7 @@ nodeJs as base for needed sql-tool. If you don't have it, install it:
 sudo apt install nodejs
 ```
 
-##Steps
+## Steps
 
 migr.dbml file is the single source of information. From this file, SQL schema is generated and tables created.
 Also nice to know, display the content and relations in the file at https://dbdiagram.io/d to view it graphically.
@@ -44,12 +44,12 @@ psql -l
 
 Generate SQL schema from the dbml file:
 ```shell
-dbml2sql -o schema.sql schema.dbml
+dbml2sql -o ./generated/schema.sql schema.dbml
 ```
 
 Initialize the schema:
 ```shell
-psql -U <user> -d <db_name> -f schema.sql
+psql -U <user> -d <db_name> -f ./generated/schema.sql
 ```
 
 Store some test data in database:
@@ -59,7 +59,7 @@ psql -U <user> -d <db_name> -f ./sql-scripts/configure-test-tables.sql
 
 Check out and run some scripts in the sql-scripts folder
 
-###Revert the database
+### Revert the database
 Delete the postgres database as you as owner:
 ```shell
 dropdb --force -U <user> <db_name>
